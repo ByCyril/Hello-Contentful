@@ -24,7 +24,7 @@ class MainViewController: UIViewController, MLLayerDelegate, NetworkLayerDelegat
         mlLayer.delegate = self
         networkLayer.delegate = self
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(urlAlert))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(askForImageURL))
         tapGesture.numberOfTapsRequired = 1
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGesture)
@@ -41,7 +41,7 @@ class MainViewController: UIViewController, MLLayerDelegate, NetworkLayerDelegat
     }
     
     @objc
-    func urlAlert() {
+    func askForImageURL() {
         let alert = UIAlertController(title: "Image URL", message: nil, preferredStyle: .alert)
         
         alert.addTextField { (textField) in
@@ -81,7 +81,6 @@ class MainViewController: UIViewController, MLLayerDelegate, NetworkLayerDelegat
     
     func didFinishCreatingAsset() {
         let alert = UIAlertController(title: "Entry is ready!", message: "Do you want to publish it?", preferredStyle: .alert)
-       
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         let publish = UIAlertAction(title: "Publish", style: .default) { [weak self] (_) in

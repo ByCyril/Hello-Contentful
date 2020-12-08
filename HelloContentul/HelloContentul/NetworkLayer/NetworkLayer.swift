@@ -138,12 +138,9 @@ final class NetworkLayer {
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.addValue(auth,
-                         forHTTPHeaderField: "Authorization")
-        request.addValue("application/vnd.contentful.management.v1+json",
-                         forHTTPHeaderField: "Content-Type")
-        request.addValue("article",
-                         forHTTPHeaderField: "X-Contentful-Content-Type")
+        request.addValue(auth, forHTTPHeaderField: "Authorization")
+        request.addValue("application/vnd.contentful.management.v1+json", forHTTPHeaderField: "Content-Type")
+        request.addValue("article", forHTTPHeaderField: "X-Contentful-Content-Type")
 
         guard let jsonData = try? JSONEncoder().encode(article) else { return }
         request.httpBody = jsonData

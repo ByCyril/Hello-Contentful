@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 struct Article: Codable {
     var fields: Fields
 }
@@ -23,5 +24,4 @@ struct Fields: Codable {
         self.tags = ["en-US": tags]
         self.content = ["en-US": content]
     }
-    
 }
