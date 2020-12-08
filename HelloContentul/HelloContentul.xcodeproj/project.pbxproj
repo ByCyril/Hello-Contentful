@@ -16,6 +16,7 @@
 		01AE635C25803B6B005DECC6 /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE635B25803B6B005DECC6 /* NetworkLayer.swift */; };
 		01AE635F25803B91005DECC6 /* MLLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE635E25803B91005DECC6 /* MLLayer.swift */; };
 		01AE636225803BB9005DECC6 /* YOLOv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 01AE636125803BB9005DECC6 /* YOLOv3.mlmodel */; };
+		01E606F225803F3200BF827A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E606F125803F3200BF827A /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		01AE635B25803B6B005DECC6 /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
 		01AE635E25803B91005DECC6 /* MLLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLLayer.swift; sourceTree = "<group>"; };
 		01AE636125803BB9005DECC6 /* YOLOv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = YOLOv3.mlmodel; path = ../YOLOv3.mlmodel; sourceTree = "<group>"; };
+		01E606F125803F3200BF827A /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 		01AE636625803BCA005DECC6 /* NetworkLayer */ = {
 			isa = PBXGroup;
 			children = (
+				01E606F125803F3200BF827A /* Model.swift */,
 				01AE635B25803B6B005DECC6 /* NetworkLayer.swift */,
 			);
 			path = NetworkLayer;
@@ -168,6 +171,7 @@
 				01AE634925803B17005DECC6 /* MainViewController.swift in Sources */,
 				01AE634525803B17005DECC6 /* AppDelegate.swift in Sources */,
 				01AE634725803B17005DECC6 /* SceneDelegate.swift in Sources */,
+				01E606F225803F3200BF827A /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

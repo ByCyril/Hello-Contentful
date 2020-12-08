@@ -14,26 +14,6 @@ protocol NetworkLayerDelegate: AnyObject {
     func didFinishPublishingEntry()
 }
 
-struct Article: Codable {
-    var fields: Fields
-}
-
-struct Fields: Codable {
-    var title: [String: String]
-    var subtitle: [String: String]
-    var tags: [String: String]
-    var content: [String: String]
-    var image: [String: [String : [String : String]]]?
-    
-    init(title: String, subtitle: String, tags: String, content: String) {
-        self.title = ["en-US": title]
-        self.subtitle = ["en-US": subtitle]
-        self.tags = ["en-US": tags]
-        self.content = ["en-US": content]
-    }
-    
-}
-
 final class NetworkLayer {
     
     private var sessions: URLSession?
@@ -47,10 +27,6 @@ final class NetworkLayer {
     weak var delegate: NetworkLayerDelegate?
     
     init() {
-        configureURLSessions()
-    }
-
-    func configureURLSessions() {
         let config = URLSessionConfiguration.default
         config.urlCache = nil
         config.urlCredentialStorage = nil
@@ -60,6 +36,14 @@ final class NetworkLayer {
         sessions = URLSession(configuration: config)
     }
     
+//    MARK:
+    func post(_ article: Article) {
+        var article = article
+        article.fields.image = ["en-US": ["sys":["type": "Link","linkType": "Asset","id": assetId!]]]
+        publishAsset(with: article)
+    }
+
+//    MARK: Get Image from URL
     func getImage(from url: String) {
         let imageUrl = URL(string: url)!
         
@@ -73,13 +57,8 @@ final class NetworkLayer {
         }).resume()
         
     }
-    
-    func post(_ article: Article) {
-        var article = article
-        article.fields.image = ["en-US": ["sys":["type": "Link","linkType": "Asset","id": assetId!]]]
-        publishAsset(with: article)
-    }
-    
+ 
+//    MARK: Create Asset in Contentful
     private func createAsset(with imageUrl: URL) {
         let url = URL(string: "https://api.contentful.com/spaces/\(spaces)/environments/\(env)/assets")!
         
@@ -112,6 +91,7 @@ final class NetworkLayer {
         }).resume()
     }
     
+//    MARK: Process the Asset
     private func processAsset(_ assetId: String) {
         let url = URL(string: "https://api.contentful.com/spaces/\(spaces)/environments/\(env)/assets/\(assetId)/files/en-US/process")!
         var request = URLRequest(url: url)
@@ -134,6 +114,7 @@ final class NetworkLayer {
         }).resume()
     }
     
+//    MARK: Publish the Asset
     private func publishAsset(with article: Article) {
         
         let url = URL(string: "https://api.contentful.com/spaces/\(spaces)/environments/\(env)/assets/\(assetId!)/published")!
@@ -153,6 +134,7 @@ final class NetworkLayer {
         }).resume()
     }
     
+//    MARK: Create an Entry
     private func createEntry(with article: Article?) {
         let url = URL(string: "https://api.contentful.com/spaces/\(spaces)/environments/\(env)/entries")!
 
@@ -185,6 +167,7 @@ final class NetworkLayer {
         }).resume()
     }
     
+//    MARK: Publish the Entry
     func publishEntry() {
         
         let url = URL(string: "https://api.contentful.com/spaces/\(spaces)/environments/\(env)/entries/\(entryId!)/published")!
