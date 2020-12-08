@@ -36,29 +36,27 @@ final class NetworkLayer {
         sessions = URLSession(configuration: config)
     }
     
-//    MARK:
+//    MARK: Start of Initial Process
+    func getImage(from url: String) {
+        let imageUrl = URL(string: url)!
+        
+        sessions?.dataTask(with: imageUrl, completionHandler: {(data, response, error) in
+            guard let image = UIImage(data: data!) else { return }
+            self.createAsset(with: imageUrl)
+            DispatchQueue.main.async {
+                self.delegate?.didFinishGettingImage(image)
+            }
+        }).resume()
+    }
+    
+//    MARK: Start of Final Process
     func post(_ article: Article) {
         var article = article
         article.fields.image = ["en-US": ["sys":["type": "Link","linkType": "Asset","id": assetId!]]]
         publishAsset(with: article)
     }
 
-//    MARK: Get Image from URL
-    func getImage(from url: String) {
-        let imageUrl = URL(string: url)!
-        
-        sessions?.dataTask(with: imageUrl, completionHandler: {(data, response, error) in
-            guard let image = UIImage(data: data!) else { return }
-            
-            DispatchQueue.main.async {
-                self.delegate?.didFinishGettingImage(image)
-                self.createAsset(with: imageUrl)
-            }
-        }).resume()
-        
-    }
- 
-//    MARK: Create Asset in Contentful
+//    MARK: Create an Asset
     private func createAsset(with imageUrl: URL) {
         let url = URL(string: "https://api.contentful.com/spaces/\(spaces)/environments/\(env)/assets")!
         

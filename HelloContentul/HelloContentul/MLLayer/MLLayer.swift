@@ -25,10 +25,8 @@ final class MLLayer {
             
 //            analyze the image
             let objectRecognition = VNCoreMLRequest(model: visionModel) { (request, error) in
-                DispatchQueue.main.async {
-                    if let results = request.results {
-                        self.parseResults(results)
-                    }
+                if let results = request.results {
+                    self.parseResults(results)
                 }
             }
             
@@ -52,7 +50,9 @@ final class MLLayer {
             tags.insert(topLabelObservation.identifier)
         }
         
-        delegate?.didFinishTaggingImage(tags)
+        DispatchQueue.main.async {
+            self.delegate?.didFinishTaggingImage(tags)
+        }
         
     }
 }
