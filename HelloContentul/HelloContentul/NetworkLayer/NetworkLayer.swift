@@ -20,9 +20,9 @@ final class NetworkLayer {
     private var assetId: String?
     private var entryId: String?
     
-    private let spaces = "w4ctznsnjumx"
-    private let env = "master"
-    private let auth = "Bearer CFPAT-l0TujDsHSlCib8MOnftiWzHrbiwjfUY7CBzuQo-ULKk"
+    private let spaces = ""
+    private let env = ""
+    private let auth = ""
 
     weak var delegate: NetworkLayerDelegate?
     
